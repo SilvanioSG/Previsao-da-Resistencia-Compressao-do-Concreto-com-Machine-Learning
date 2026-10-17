@@ -183,7 +183,7 @@ predicao-resistencia-concreto/
 ├── gerar_slides.py                        # gera a apresentação HTML
 │
 ├── data/
-│   └── concrete.csv                       # [cópia local do dataset](https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set)
+│   └── concrete.csv                       # https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set
 │
 └── docs/                                  # GitHub Pages
     ├── index.html                         # apresentação (raiz do Pages)
