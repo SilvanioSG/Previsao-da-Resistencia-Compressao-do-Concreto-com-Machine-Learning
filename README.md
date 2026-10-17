@@ -183,7 +183,7 @@ predicao-resistencia-concreto/
 ├── gerar_slides.py                        # gera a apresentação HTML
 │
 ├── data/
-│   └── concrete.csv                       # cópia local do dataset
+│   └── concrete.csv                       # [cópia local do dataset](https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set)
 │
 └── docs/                                  # GitHub Pages
     ├── index.html                         # apresentação (raiz do Pages)
@@ -197,8 +197,8 @@ predicao-resistencia-concreto/
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/SilvanioSG/predicao-resistencia-concreto.git
-cd predicao-resistencia-concreto
+git clone https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning.git
+cd Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning
 ```
 
 ### 2. Criar ambiente virtual e instalar dependências
@@ -243,7 +243,7 @@ Abra `apresentacao_concreto.html` no navegador, **ou** publique com GitHub Pages
 2. Em **Source**, selecione: `Deploy from a branch`
 3. **Branch:** `main` · **Folder:** `/docs`
 4. Salve — aguarde ~1 minuto
-5. URL final: `https://silvaniogois.github.io/predicao-resistencia-concreto/`
+5. URL final: `Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning`
 
 ---
 
