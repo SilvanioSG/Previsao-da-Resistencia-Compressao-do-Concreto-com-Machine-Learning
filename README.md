@@ -6,11 +6,7 @@
 <h3 align="center">Otimização de dosagem, redução de custos e controle de qualidade em obras</h3>
 
 <p align="center">
-  <a href="https://silvaniogois.github.io/predicao-resistencia-concreto/"><img src="https://img.shields.io/badge/Apresentação-Ver%20slides-ff7b00?style=for-the-badge&logo=html5&logoColor=white" alt="Slides"></a>
-  <a href="https://silvaniogois.github.io/predicao-resistencia-concreto/relatorio.html"><img src="https://img.shields.io/badge/Relatório-Completo-14375c?style=for-the-badge&logo=jupyter&logoColor=white" alt="Relatório"></a>
-  <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/scikit--learn-1.3-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="sklearn">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
+  <a href="https://silvaniosg.github.io/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/"><img src="https://img.shields.io/badge/Apresentação-Ver%20slides-ff7b00?style=for-the-badge&logo=html5&logoColor=white" alt="Slides"></a>
 </p>
 
 <p align="center">
