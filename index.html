@@ -43,12 +43,41 @@
 }
 .highlight-box p { margin:0; }
 
-.icon-list { list-style:none; padding:0; margin:0.4em 0; }
-.icon-list li { padding:0.3em 0 0.3em 1.6em; position:relative; }
-.icon-list li::before {
-    content:'▸'; color:var(--laranja); font-size:1.2em;
-    position:absolute; left:6px; top:0.28em;
+/* ==== FIX: RESET DE MARCADOR (bate .reveal ul do tema com maior especificidade) ==== */
+.reveal .slides ul.icon-list,
+.reveal .slides section ul.icon-list,
+.reveal ul.icon-list {
+    list-style: none !important;
+    list-style-type: none !important;
+    margin: 0.4em 0 !important;
+    padding: 0 !important;
+    display: block !important;
 }
+.reveal .slides ul.icon-list > li,
+.reveal .slides section ul.icon-list > li,
+.reveal ul.icon-list > li {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding: 0.3em 0 0.3em 1.6em !important;
+    position: relative;
+    margin: 0 !important;
+}
+.reveal .slides ul.icon-list > li::marker,
+.reveal .slides section ul.icon-list > li::marker {
+    content: '' !important;
+    color: transparent !important;
+    display: none !important;
+}
+.reveal .slides ul.icon-list > li::before {
+    content: '▸';
+    color: var(--laranja);
+    font-size: 1.2em;
+    position: absolute;
+    left: 6px;
+    top: 0.26em;
+    line-height: 1;
+}
+/* ================================================================================= */
 
 .metric-grid { display:flex; gap:20px; justify-content:center; margin:0.8em 0; flex-wrap:wrap; }
 .metric-card {
@@ -95,6 +124,30 @@
 .big    { font-size:1.15em; }
 .small  { font-size:0.6em; color:var(--cinza); }
 
+/* ==== LINK DE DOCUMENTAÇÃO (inline e botão) ==== */
+.doc-reference {
+    margin-top:0.6em;
+    padding-top:0.5em;
+    border-top:1px solid rgba(255,123,0,0.25);
+    display:flex; flex-wrap:wrap; gap:4px 8px;
+    align-items:center;
+}
+.doc-label { color:var(--cinza); font-size:0.85em; }
+.reveal .doc-link, a.doc-link {
+    color:var(--laranja) !important;
+    font-weight:600;
+    font-size:0.9em;
+    text-decoration:none;
+    border-bottom:1px dashed var(--laranja);
+    padding-bottom:1px;
+    transition:0.2s;
+}
+.reveal .doc-link:hover {
+    color:#fff !important;
+    background:rgba(255,123,0,0.15);
+    border-bottom-style:solid;
+}
+
 .contact-grid { display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap; }
 .contact-btn {
     background:var(--azul-medio); color:#fff !important;
@@ -103,16 +156,24 @@
     border:2px solid var(--laranja); transition:0.3s;
 }
 .contact-btn:hover { background:var(--laranja); color:#000 !important; }
+.reveal .contact-btn.doc-btn {
+    background:var(--laranja);
+    color:#000 !important;
+    font-weight:700;
+    box-shadow:0 6px 18px rgba(255,123,0,0.35);
+}
+.reveal .contact-btn.doc-btn:hover {
+    background:var(--azul-medio);
+    color:#fff !important;
+}
 
 .mobile-only { display:none; }
 .desktop-only { display:inline; }
 
 /* ================================================================
-   MOBILE / TABLET PORTRAIT (≤ 900px)
-   Aqui config.width = viewport real, portanto scale = 1.0.
-   Tudo abaixo é CSS aplicado em tamanho real, sem escala.
+   MOBILE — 2 gatilhos: largura estreita OU altura baixa (landscape)
    ================================================================ */
-@media (max-width: 900px) {
+@media (max-width: 900px), (max-height: 500px) {
     html, body { height:100%; overflow:hidden; }
     .reveal { font-size:17px; }
     .reveal h1 { font-size:1.5em;  line-height:1.2; }
@@ -138,8 +199,8 @@
     .two-col img { width:100%; max-height:42vh; object-fit:contain; margin:0 auto; }
 
     .highlight-box { padding:12px 14px; margin:0.5em 0; border-left-width:4px; }
-    .icon-list li { padding:0.3em 0 0.3em 1.4em; }
-    .icon-list li::before { top:0.32em; }
+    .icon-list > li { padding:0.3em 0 0.3em 1.4em !important; }
+    .icon-list > li::before { top:0.3em !important; }
 
     .metric-grid { gap:12px; margin:0.6em 0; }
     .metric-card { min-width:130px; padding:12px 16px; border-radius:10px; }
@@ -164,6 +225,9 @@
     .mobile-only  { display:inline; }
     .desktop-only { display:none; }
     .reveal .controls { display:none !important; }
+
+    .doc-reference { margin-top:0.5em; padding-top:0.4em; }
+    .doc-label, .reveal .doc-link, a.doc-link { font-size:0.95em; }
 }
 
 /* ============ TELAS MUITO PEQUENAS (≤ 480px) ============ */
@@ -181,6 +245,36 @@
     .reveal table { font-size:0.8em; }
     .reveal table th, .reveal table td { padding:0.4em 0.45em; }
     .footer { font-size:0.72em; }
+}
+
+/* ================================================================
+   LANDSCAPE COMPACTO — celular deitado (altura baixa)
+   Reaproveita largura: 2 colunas + tipografia compacta.
+   ================================================================ */
+@media (orientation: landscape) and (max-height: 500px) {
+    .reveal { font-size:14px; }
+    .reveal h2 { font-size:1.25em; margin-bottom:0.3em; }
+    .reveal h3 { font-size:0.95em; }
+    .reveal p, .reveal li { font-size:0.92em; line-height:1.4; margin:0.2em 0; }
+
+    .slide-content { padding:10px 20px 30px; }
+
+    /* 2 colunas de volta — usa a largura disponível */
+    .two-col { grid-template-columns:1fr 1fr; gap:15px; }
+    .two-col img { max-height:62vh; }
+
+    .highlight-box { padding:8px 14px; margin:0.3em 0; }
+    .icon-list > li { padding:0.22em 0 0.22em 1.35em !important; }
+
+    .metric-grid { gap:10px; margin:0.4em 0; }
+    .metric-card { padding:8px 14px; min-width:120px; }
+    .metric-card .value { font-size:1.4em; }
+    .metric-card .label { font-size:0.7em; }
+
+    .slide-capa img { max-height:70px; }
+    .contact-btn { font-size:0.85em; padding:8px 14px; }
+    .footer { display:none; }
+    .reveal .slide-number { font-size:0.72em; bottom:6px; right:6px; }
 }
 </style>
 </head>
@@ -278,6 +372,10 @@
                         <p class="small">Robusto a não-linearidades · Resistente a overfitting · Fornece importância das variáveis · Excelente para materiais heterogêneos</p>
                     </div>
                 </div>
+            </div>
+            <div class="doc-reference">
+                <span class="doc-label">Código-fonte, dataset e metodologia detalhada:</span>
+                <a class="doc-link" href="https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning" target="_blank" rel="noopener">Documentação do Estudo →</a>
             </div>
         </div>
     </section>
@@ -403,6 +501,9 @@
             <p class="subtitle">Gestão de Operações &amp; Análise de Dados aplicados à Engenharia Civil</p>
             <p class="author">Silvânio Góis</p>
             <div class="contact-grid">
+                <a class="contact-btn doc-btn" href="https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning" target="_blank" rel="noopener">
+                    Documentação do Estudo
+                </a>
                 <a class="contact-btn" href="https://www.silvaniogois.com.br" target="_blank">Website</a>
                 <a class="contact-btn" href="https://www.linkedin.com/in/silvanio-gois" target="_blank">LinkedIn</a>
                 <a class="contact-btn" href="https://github.com/SilvanioSG" target="_blank">GitHub</a>
@@ -417,12 +518,15 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
 <script>
 /* ============================================================
-   CONFIG DINÂMICA
-   Desktop → canvas 1280×720 + auto-fit (como antes)
-   Mobile  → canvas = viewport REAL (números!) ⇒ scale = 1.0
-             NUNCA passar '100%' — quebra o scale do Reveal (NaN).
+   Detecção de mobile: largura estreita OU altura baixa
+   (cobre celulares deitados cuja largura > 900px)
    ============================================================ */
-const isMobile = window.matchMedia('(max-width: 900px)').matches;
+function isMobileViewport() {
+    return window.matchMedia('(max-width: 900px)').matches
+        || window.matchMedia('(max-height: 500px)').matches;
+}
+
+const isMobile = isMobileViewport();
 
 const config = {
     hash: true,
@@ -440,11 +544,11 @@ const config = {
 };
 
 if (isMobile) {
-    // VIEWPORT REAL em pixels → scale = 1.0, sem encolher nada
+    // VIEWPORT REAL em pixels → scale = 1.0 (sem encolher nada)
     config.width  = Math.max(320, Math.round(document.documentElement.clientWidth));
-    config.height = Math.max(480, Math.round(window.innerHeight));
+    config.height = Math.max(320, Math.round(window.innerHeight));
     config.margin = 0;
-    config.minScale = 0.6;
+    config.minScale = 0.5;
     config.maxScale = 1.2;
 } else {
     config.width  = 1280;
@@ -457,11 +561,10 @@ if (isMobile) {
 Reveal.initialize(config);
 
 /* ============================================================
-   AUTO-FIT — apenas desktop
-   No mobile, o slide-content já tem overflow-y:auto (scroll nativo).
+   AUTO-FIT — apenas desktop (mobile usa scroll nativo)
    ============================================================ */
 function autoFitSlides() {
-    if (window.matchMedia('(max-width: 900px)').matches) {
+    if (isMobileViewport()) {
         document.querySelectorAll('.reveal .slides section .slide-content')
             .forEach(el => { el.style.transform = ''; });
         return;
@@ -491,9 +594,9 @@ window.addEventListener('resize', () => {
     resizeTimer = setTimeout(autoFitSlides, 150);
 });
 
-/* Recarrega ao girar a tela em mobile (para recalcular width/height) */
+/* Recarrega ao trocar orientação (recalcula viewport nativo) */
 window.addEventListener('orientationchange', () => {
-    if (isMobile) location.reload();
+    if (isMobileViewport()) location.reload();
 });
 </script>
 </body>
