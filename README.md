@@ -158,7 +158,7 @@ Modelo preditivo de **Random Forest Regressor** que estima a resistência em MPa
 - Validação real vs. predito (scatter)
 - Importância das variáveis (bar chart)
 
-> As três visualizações estão disponíveis na [apresentação](https://silvaniogois.github.io/predicao-resistencia-concreto/) e no [relatório completo](https://silvaniogois.github.io/predicao-resistencia-concreto/relatorio.html).
+> A visualização está disponível na [apresentação]([https://silvaniogois.github.io/predicao-resistencia-concreto/](https://silvaniosg.github.io/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/)).
 
 ---
 
