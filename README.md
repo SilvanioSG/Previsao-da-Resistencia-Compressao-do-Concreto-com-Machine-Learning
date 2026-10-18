@@ -1,377 +1,298 @@
-<div align="center">
-  <img src="SG_Site.png" alt="Silvânio Góis" width="720"/>
+ <div align="center">
+  <img src="SG_Site.png" alt="Silvânio Góis — Gestão de Operações e Negócios Orientada a Dados" width="100%"/>
 </div>
 
-<h1 align="center">Previsão da Resistência à Compressão do Concreto com Machine Learning</h1>
-<h3 align="center">Otimização de dosagem, redução de custos e controle de qualidade em obras</h3>
+# Previsão da Resistência à Compressão do Concreto com Machine Learning
 
-<p align="center">
-  <a href="https://silvaniosg.github.io/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/"><img src="https://img.shields.io/badge/Apresentação-Ver%20slides-ff7b00?style=for-the-badge&logo=html5&logoColor=white" alt="Slides"></a>
-</p>
+### Otimização de Dosagem, Redução de Custos e Controle de Qualidade em Obras
 
-<p align="center">
-  <b>Autor:</b> Silvânio Góis — <i>Gestor de Operações e Negócios Orientado a Dados</i><br>
-  <a href="https://www.silvaniogois.com.br">Website</a> ·
-  <a href="https://www.linkedin.com/in/silvanio-gois">LinkedIn</a> ·
-  <a href="https://github.com/SilvanioSG">GitHub</a> ·
-  <a href="mailto:sg@silvaniogois.com.br">E-mail</a>
-</p>
+**Autor:** Silvânio Góis — Gestor de Operações e Negócios Orientado a Dados
+
+**Contatos:** [Website](https://www.silvaniogois.com.br) · [LinkedIn](https://www.linkedin.com/in/silvanio-gois) · [GitHub](https://github.com/SilvanioSG) · [E-mail](mailto:sg@silvaniogois.com.br)
 
 ---
 
-## Índice
+## Acesso Rápido
 
-- [Visão Geral](#-visão-geral)
-- [O Problema](#-o-problema)
-- [A Solução](#-a-solução)
-- [Origem e Dicionário dos Dados](#-origem-e-dicionário-dos-dados)
-- [Metodologia](#-metodologia)
-- [Resultados](#-resultados)
-- [Estrutura do Repositório](#-estrutura-do-repositório)
-- [Como Reproduzir](#-como-reproduzir)
-- [Perguntas Frequentes (Q&A)](#-perguntas-frequentes-qa)
-- [Impacto Estratégico](#-impacto-estratégico)
-- [Licença e Citação](#-licença-e-citação)
+| Recurso | Link |
+| :--- | :--- |
+| Relatório online (GitHub Pages) | [Acessar relatório](https://silvaniosg.github.io/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/) |
+| Repositório no GitHub | [Acessar repositório](https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning) |
+| Relatório em PDF | [`Relatorio_Predicao_Concreto.pdf`](https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/blob/main/Relatorio_Predicao_Concreto.pdf) |
+| Notebook executado | [`Relatorio_Predicao_Concreto.ipynb`](https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/blob/main/Relatorio_Predicao_Concreto.ipynb) |
+| Script gerador do notebook | [`gerar_relatorio.py`](https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/blob/main/gerar_relatorio.py) |
 
 ---
 
-## Visão Geral
+## 1. Contexto de Negócio
 
-Este projeto aplica **Machine Learning** para prever a resistência à compressão do concreto (em MPa) a partir apenas do seu traço e tempo de cura — permitindo que construtoras e usinas **antecipem decisões críticas em segundos**, em vez dos tradicionais 28 dias de rompimento laboratorial.
+No setor da construção civil, o concreto é um dos principais insumos estruturais. A verificação de sua resistência à compressão, expressa em megapascals (MPa), tradicionalmente envolve ensaios laboratoriais com corpos de prova em diferentes idades de cura, frequentemente aos 28 dias. Esse processo pode aumentar o tempo de tomada de decisão, gerar custos operacionais e dificultar o planejamento de atividades dependentes da resistência do material.
 
-**Resultado alcançado:** modelo Random Forest com **R² = 0,8841** e **RMSE = 5,46 MPa**, demonstrando que é possível prever a resistência com alta confiabilidade apenas com dados de composição.
+Este projeto aplica técnicas de Machine Learning para estimar a resistência à compressão do concreto com base nas proporções dos materiais utilizados na mistura e na idade de cura. A proposta é substituir parte da análise baseada exclusivamente em experimentação por uma abordagem orientada a dados, capaz de apoiar decisões de engenharia, planejamento e controle de qualidade.
 
----
+### Inteligência Aplicada ao Negócio
 
-## O Problema
-
-Na construção civil, validar um traço de concreto exige **28 dias de cura** até o rompimento do corpo de prova. Este atraso gera:
-
-| Dor | Consequência |
-|-----|--------------|
-| Atraso na desforma | Cronograma travado, escoramentos ocupados |
-| Custos com retrabalho | Se o lote não atinge a resistência projetada |
-| Riscos operacionais | Estruturas liberadas antes do tempo seguro |
-| Desperdício de cimento | Superdimensionamento preventivo por incerteza |
+- **Aceleração do cronograma:** estimativa da evolução da resistência em idades iniciais, como 3 e 7 dias, para apoiar o planejamento de desforma e escoramento, sempre condicionada à validação técnica e às normas aplicáveis.
+- **Eficiência financeira:** análise de dosagens para investigar oportunidades de redução do consumo de cimento e evitar formulações excessivamente conservadoras.
+- **Sustentabilidade (ESG):** avaliação de alternativas com menor consumo de materiais cimentícios e potencial redução das emissões associadas à produção do concreto.
+- **Controle de qualidade preditivo:** utilização de modelos estatísticos para estimar a resistência e apoiar a identificação de misturas com desempenho potencialmente inadequado.
 
 ---
 
-## A Solução
+## 2. Origem dos Dados
 
-Modelo preditivo de **Random Forest Regressor** que estima a resistência em MPa a partir de 8 features (componentes do traço + idade de cura), com as seguintes entregas:
+A base utilizada provém do UCI Machine Learning Repository e corresponde ao conjunto de dados *Concrete Compressive Strength Dataset*, disponibilizado publicamente por I-Cheng Yeh, do Department of Information Management da Chung-Hua University.
 
-- **Redução no consumo de cimento** sem perda de segurança estrutural
-- **Antecipação de decisões** no canteiro de obras
-- **Minimização de desperdícios** e emissões de CO₂
-- **Previsão em segundos** vs. 28 dias de espera
+O conjunto foi apresentado originalmente no artigo científico:
 
----
+> YEH, I-Cheng. *Modeling of strength of high-performance concrete using artificial neural networks.* Cement and Concrete Research, v. 28, n. 12, p. 1797–1808, 1998.
 
-## Origem e Dicionário dos Dados
+**Características da base:**
 
-### Fonte oficial
+- **Acesso aos dados:** [Concrete Compressive Strength Dataset — arquivo CSV](https://raw.githubusercontent.com/stedy/Machine-Learning-With-R-Datasets/master/concrete.csv)
+- **Volume:** 1.030 amostras de ensaios laboratoriais.
+- **Variáveis de entrada:** cimento, escória de alto-forno, cinza volante, água, superplastificante, agregado graúdo, agregado miúdo e idade de cura.
+- **Unidades:** os componentes da mistura são expressos em kg/m³ e a idade em dias.
+- **Variável-alvo:** resistência à compressão, expressa em MPa.
 
-- **Dataset:** *Concrete Compressive Strength*
-- **Autor original:** I-Cheng Yeh (1998) — *Cement and Concrete Research*, 28(12), 1797-1808
-- **Repositório primário:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength)
-- **DOI:** [10.24432/C5PK67](https://doi.org/10.24432/C5PK67)
-- **Mirror usado no código:** [stedy/Machine-Learning-With-R-Datasets](https://raw.githubusercontent.com/stedy/Machine-Learning-With-R-Datasets/master/concrete.csv)
-- **Volume:** 1.030 amostras · 9 atributos · **sem valores nulos**
-
-### Dicionário de atributos (em kg/m³, exceto onde indicado)
-
-| Atributo | Variável no código | Faixa típica | Descrição na Engenharia Civil |
-|----------|-------------------|--------------|-------------------------------|
-| Cimento | `cimento` | 102–540 | Aglomerante principal (maior custo) |
-| Escória de Alto Forno | `escoria` | 0–360 | Subproduto que melhora durabilidade |
-| Cinza Volante | `cinza_volante` | 0–200 | Pozolana que substitui parte do cimento |
-| Água | `agua` | 121–247 | Regula a relação a/c (Abrams) |
-| Superplastificante | `superplastificante` | 0–32 | Aditivo que reduz a necessidade de água |
-| Agregado Graúdo | `agregado_graudo` | 801–1145 | Brita / pedra |
-| Agregado Miúdo | `agregado_miudo` | 594–992 | Areia |
-| Idade | `idade` (dias) | 1–365 | Tempo de cura |
-| **Resistência** | `resistencia_compressao` (MPa) | 2,3–82,6 | **Variável-alvo (target)** |
+A utilização de uma base pública permite reproduzir os experimentos e comparar os resultados obtidos com outras abordagens de modelagem.
 
 ---
 
-## Metodologia
+## 3. Engenharia de Features
 
-```
-┌─────────────────────┐
-│  1. Carregamento    │  concrete.csv (UCI)
-│     e padronização  │  Colunas em PT-BR
-└──────────┬──────────┘
-           ▼
-┌─────────────────────┐
-│  2. Análise         │  Heatmap de correlação
-│     Exploratória    │  Identificação de padrões
-└──────────┬──────────┘
-           ▼
-┌─────────────────────┐
-│  3. Split 80/20     │  Validação honesta
-│     Treino/Teste    │  random_state=42
-└──────────┬──────────┘
-           ▼
-┌─────────────────────┐
-│  4. Random Forest   │  n_estimators=100
-│     Regressor       │  Robustez a não-linearidades
-└──────────┬──────────┘
-           ▼
-┌─────────────────────┐
-│  5. Avaliação       │  R², RMSE
-│     e Interpretação │  Feature Importance
-└─────────────────────┘
-```
+Além dos oito atributos originais, foram construídas oito variáveis derivadas para representar relações entre os componentes da mistura e características relevantes para a resistência do concreto.
 
-**Por que Random Forest?**
-- Robusto a relações não-lineares entre insumos e resistência
-- Resistente a *overfitting* (múltiplas árvores)
-- Fornece **importância das variáveis** (interpretabilidade)
-- Excelente para materiais heterogêneos como o concreto
+Essa etapa, conhecida como *Feature Engineering*, incorpora conhecimento do domínio ao processo de modelagem e permite investigar relações que não estão explicitamente representadas nas variáveis originais.
+
+| Feature derivada | Fórmula | Justificativa técnica |
+| :--- | :--- | :--- |
+| `relacao_ac` | Água / cimento | Representa a relação água/cimento, associada à resistência do concreto conforme a Lei de Abrams. |
+| `total_ligante` | Cimento + escória + cinza volante | Representa a quantidade total dos materiais cimentícios considerados. |
+| `relacao_agua_ligante` | Água / total_ligante | Expressa a relação entre água e materiais cimentícios totais. |
+| `total_agregado` | Agregado graúdo + agregado miúdo | Representa a massa total de agregados na mistura. |
+| `prop_escoria` | Escória / total_ligante | Expressa a participação da escória na composição dos materiais cimentícios. |
+| `prop_cinza` | Cinza volante / total_ligante | Expressa a participação da cinza volante na composição dos materiais cimentícios. |
+| `sp_por_ligante` | Superplastificante / total_ligante | Representa a dosagem relativa do aditivo em relação aos materiais cimentícios. |
+| `log_idade` | ln(1 + idade) | Transforma a idade de cura para representar possíveis relações não lineares com a resistência. |
+
+As variáveis derivadas ampliam a representação dos dados e ajudam os algoritmos a identificar padrões relevantes para a previsão. Sua contribuição efetiva deve ser avaliada por meio dos resultados experimentais, e não presumida apenas pela justificativa técnica.
 
 ---
 
-## Resultados
+## 4. Metodologia — Como o Teste Foi Realizado
 
-### Métricas na base de teste (206 amostras não vistas)
+O desenvolvimento seguiu um pipeline de Machine Learning estruturado para avaliar o desempenho preditivo, comparar algoritmos e reduzir a dependência de uma única divisão dos dados.
 
-| Métrica | Valor | Interpretação |
-|---------|-------|---------------|
-| **R² Score** | **0,8841** | Explica 88,4% da variação da resistência |
-| **RMSE** | **5,46 MPa** | Erro médio de ~5,5 MPa por previsão |
-| **MSE** | 29,8 MPa² | Erro quadrático médio |
+### Etapas do pipeline
 
-### Principais insights
+1. **Divisão entre treino e teste (80/20):** separação dos dados para treinamento e avaliação final em amostras não utilizadas no ajuste dos modelos.
+2. **Validação cruzada K-Fold (5 folds):** avaliação do comportamento dos algoritmos em diferentes partições dos dados, permitindo analisar a estabilidade dos resultados.
+3. **Otimização de hiperparâmetros:** utilização do `RandomizedSearchCV` para pesquisar combinações de parâmetros, com 30 combinações avaliadas e validação cruzada de cinco folds.
+4. **Comparação de algoritmos:** avaliação de modelos baseados em árvores e métodos de boosting, considerando suas métricas de desempenho.
+5. **Ensemble por Stacking:** combinação das previsões de modelos-base por meio de um modelo de nível superior, utilizando regressão Ridge como meta-modelo.
 
-- **Cimento** e **idade de cura** são as variáveis dominantes no modelo
-- **Água** apresenta correlação negativa com a resistência (princípio de Abrams)
-- **Superplastificante** tem efeito positivo moderado
-- **Escória e cinza volante** atuam como substitutos parciais do cimento
+### Modelos Avaliados
 
-### Visualizações
+- **Random Forest Regressor:** modelo de referência e versão com hiperparâmetros otimizados.
+- **Gradient Boosting Regressor:** algoritmo de boosting baseado em árvores de decisão.
+- **HistGradientBoosting Regressor:** implementação de boosting com histogramas, voltada à eficiência computacional.
+- **XGBoost e LightGBM:** algoritmos opcionais de boosting, quando disponíveis no ambiente.
+- **StackingRegressor:** abordagem de ensemble que combina modelos-base para gerar uma previsão final.
 
-- Matriz de correlação (heatmap)
-- Validação real vs. predito (scatter)
-- Importância das variáveis (bar chart)
-
-> A visualização está disponível na [apresentação]([https://silvaniogois.github.io/predicao-resistencia-concreto/](https://silvaniosg.github.io/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/)).
+A comparação entre os algoritmos permite identificar qual abordagem apresenta melhor equilíbrio entre precisão e capacidade de generalização para o conjunto de dados utilizado.
 
 ---
 
-## Estrutura do Repositório
+## 5. Resultados
 
-```
-predicao-resistencia-concreto/
-├── README.md                              # este arquivo
-├── LICENSE                                # MIT
-├── requirements.txt                       # dependências Python
-├── .gitignore
-│
-├── SG_Site.png                            # logo do autor
-│
-├── Predição de Resistência do Concreto.ipynb    # notebook original (com código)
-├── Relatorio_Predicao_Concreto.ipynb            # notebook unificado (código oculto)
-│
-├── apresentacao_concreto.html             # slides Reveal.js
-├── relatorio_concreto.html                # relatório HTML (nbconvert --no-input)
-│
-├── gerar_relatorio.py                     # gera o notebook unificado
-├── gerar_slides.py                        # gera a apresentação HTML
-│
-├── data/
-│   └── concrete.csv                       # https://www.kaggle.com/datasets/elikplim/concrete-compressive-strength-data-set
-│
-└── docs/                                  # GitHub Pages
-    ├── index.html                         # apresentação (raiz do Pages)
-    └── relatorio.html                     # relatório completo
+Os resultados abaixo representam as métricas registradas na avaliação dos modelos. O conjunto de teste corresponde a 20% dos dados separados antes do treinamento.
+
+O coeficiente de determinação (R²) mede a proporção da variabilidade da variável-alvo explicada pelo modelo. O RMSE (*Root Mean Squared Error*) representa a raiz do erro quadrático médio e é expresso na mesma unidade da variável prevista, neste caso, MPa.
+
+### Comparação de desempenho
+
+| Modelo | R² Teste | RMSE (MPa) | R² CV (média) | R² CV (desvio-padrão) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Stacking (Ensemble)** | **0,9270** | **4,34** | — | — |
+| HistGradientBoosting | 0,9252 | 4,39 | 0,9257 | 0,0130 |
+| GradientBoosting | 0,9188 | 4,57 | 0,9218 | 0,0095 |
+| Random Forest — Baseline | 0,9104 | 4,81 | 0,9004 | 0,0131 |
+| Random Forest — Otimizado | 0,9080 | 4,87 | 0,9129 | 0,0100 |
+
+### Interpretação dos resultados
+
+O modelo **Stacking (Ensemble)** apresentou o melhor resultado na avaliação de teste, com R² de 0,9270 e RMSE de 4,34 MPa.
+
+O HistGradientBoosting apresentou desempenho próximo, com R² de 0,9252 e RMSE de 4,39 MPa, além de resultados de validação cruzada com média de R² igual a 0,9257.
+
+Os resultados indicam que os modelos conseguem representar uma parcela expressiva da variabilidade da resistência à compressão presente na base analisada. Entretanto, o erro de previsão permanece relevante e deve ser considerado antes de qualquer aplicação operacional.
+
+A utilização desses modelos pode apoiar estudos preliminares de dosagem, análises comparativas e planejamento de ensaios. A adoção em decisões estruturais exige validação experimental, avaliação das condições de aplicação e atendimento às normas técnicas pertinentes.
+
+**Nota metodológica:** os valores apresentados correspondem aos resultados registrados neste projeto. Para assegurar a reprodutibilidade, recomenda-se confirmar as métricas diretamente no notebook executado e verificar se o Stacking foi avaliado com o mesmo protocolo de separação e validação aplicado aos demais modelos.
+
+---
+
+## 6. Importância das Variáveis e Análise dos Resultados
+
+A análise de correlação, a importância das variáveis (*Feature Importance*) e a importância por permutação (*Permutation Importance*) são utilizadas para investigar quais atributos apresentam maior contribuição para as previsões dos modelos.
+
+Entre as variáveis de interesse estão a relação água/cimento (`relacao_ac`), a idade de cura (`log_idade`) e a quantidade de cimento. Essas características possuem justificativa técnica no comportamento do concreto e permitem relacionar os padrões identificados pelo algoritmo ao conhecimento de engenharia de materiais.
+
+A interpretação dessas análises pode apoiar diferentes decisões de negócio:
+
+- **Suprimentos e planejamento:** identificação dos insumos associados a mudanças relevantes na resistência estimada.
+- **Pesquisa e desenvolvimento:** avaliação comparativa de formulações e investigação da influência das adições minerais.
+- **Eficiência operacional:** estudo de alternativas de dosagem com foco na relação entre desempenho técnico e consumo de materiais.
+- **Sustentabilidade:** análise de possibilidades de substituição parcial do cimento, sujeita à confirmação experimental e ao atendimento dos requisitos de desempenho.
+- **Controle de qualidade:** identificação de variáveis que merecem acompanhamento prioritário na caracterização das misturas.
+
+A importância preditiva de uma variável não demonstra, isoladamente, uma relação causal. Além disso, os resultados de importância dependem dos dados, das correlações entre os atributos e do algoritmo utilizado.
+
+Por esse motivo, as conclusões devem ser interpretadas em conjunto com os fundamentos técnicos, os resultados experimentais e as limitações da base de dados.
+
+---
+
+## 7. Estrutura do Repositório
+
+A organização do repositório foi planejada para facilitar a consulta aos resultados, a reprodução dos experimentos e a compreensão do processo de desenvolvimento.
+
+```text
+Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning/
+├── SG_Site.png
+├── Relatorio_Predicao_Concreto.ipynb
+├── Relatorio_Predicao_Concreto.pdf
+├── Relatorio_Predicao_Concreto.html
+├── gerar_relatorio.py
+└── README.md
 ```
 
+### Descrição dos arquivos
+
+- **`SG_Site.png`:** imagem institucional utilizada no cabeçalho do README.
+- **`Relatorio_Predicao_Concreto.ipynb`:** notebook Jupyter com células de código, análises, tabelas, gráficos e resultados registrados.
+- **`Relatorio_Predicao_Concreto.pdf`:** relatório estático para consulta e apresentação dos resultados.
+- **`Relatorio_Predicao_Concreto.html`:** versão navegável do relatório, adequada para visualização em navegadores compatíveis.
+- **`gerar_relatorio.py`:** script utilizado para construir, executar e exportar o notebook por meio das ferramentas Python e Jupyter.
+- **`README.md`:** documentação principal do projeto, com contexto, metodologia, resultados e instruções de reprodução.
+
+O script de geração utiliza ferramentas do ecossistema Jupyter, incluindo `nbformat` e `nbclient`. Em ambientes Windows, pode ser necessário ajustar a configuração do event loop para compatibilidade com bibliotecas utilizadas pelo Jupyter e pelo ZeroMQ.
+
 ---
 
-## Como Reproduzir
+## 8. Como Reproduzir
 
-### 1. Clonar o repositório
+Para reproduzir o projeto, é necessário ter Python instalado e acesso ao terminal. Recomenda-se utilizar um ambiente virtual para isolar as dependências.
+
+### Etapa 1 — Clonar o repositório
 
 ```bash
 git clone https://github.com/SilvanioSG/Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning.git
+
 cd Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning
 ```
 
-### 2. Criar ambiente virtual e instalar dependências
+### Etapa 2 — Criar e ativar um ambiente virtual
+
+No Windows:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate       # Linux/Mac
-# ou .venv\Scripts\activate    # Windows
 
-pip install -r requirements.txt
+.venv\Scripts\activate
 ```
 
-### 3. Executar o notebook
+No Linux ou macOS:
 
 ```bash
-jupyter notebook "Predição de Resistência do Concreto.ipynb"
+python3 -m venv .venv
+
+source .venv/bin/activate
 ```
 
-### 4. Regerar os artefatos de apresentação (opcional)
+### Etapa 3 — Instalar as dependências
 
 ```bash
-# Gera o notebook unificado com markdown + código oculto
+python -m pip install --upgrade pip
+
+pip install jupyter nbformat nbclient pandas numpy matplotlib seaborn scikit-learn
+```
+
+Para habilitar os algoritmos opcionais XGBoost e LightGBM, execute:
+
+```bash
+pip install xgboost lightgbm
+```
+
+A disponibilidade desses pacotes pode alterar os modelos avaliados e os resultados obtidos. Para reproduzir os números do relatório, é importante manter as versões das bibliotecas e a configuração experimental compatíveis com as utilizadas na execução original.
+
+### Etapa 4 — Gerar e executar o notebook
+
+Execute o script a partir da pasta do repositório:
+
+```bash
 python gerar_relatorio.py
-
-# Gera a apresentação Reveal.js auto-contida
-python gerar_slides.py
-
-# Exporta o relatório para HTML limpo (sem código)
-jupyter nbconvert --to html --no-input Relatorio_Predicao_Concreto.ipynb \
-    --output-dir docs --output relatorio.html
 ```
 
-### 5. Visualizar a apresentação
+O script é responsável pela geração e execução automatizada do notebook, conforme a implementação existente no repositório.
 
-Abra `apresentacao_concreto.html` no navegador, **ou** publique com GitHub Pages (ver abaixo).
+### Alternativa — Executar manualmente
 
----
+Também é possível abrir o arquivo `Relatorio_Predicao_Concreto.ipynb` no Jupyter Notebook ou no Visual Studio Code e executar as células na sequência apresentada.
 
-## Deploy no GitHub Pages
+**Tempo estimado de execução:** de 8 a 15 minutos, conforme o hardware disponível, as dependências instaladas e a configuração da busca de hiperparâmetros.
 
-1. Vá em **Settings → Pages**
-2. Em **Source**, selecione: `Deploy from a branch`
-3. **Branch:** `main` · **Folder:** `/docs`
-4. Salve — aguarde ~1 minuto
-5. URL final: `Previsao-da-Resistencia-Compressao-do-Concreto-com-Machine-Learning`
+**Observação:** a reprodução integral depende da disponibilidade dos arquivos referenciados pelo script, do acesso à base de dados e da compatibilidade das versões das bibliotecas. O tempo informado é estimativo, não uma garantia de duração.
 
 ---
 
-## Perguntas Frequentes (Q&A)
+## 9. Próximos Passos Recomendados
 
-### Técnicas
+O projeto pode evoluir de um estudo experimental para uma ferramenta de apoio à decisão por meio das seguintes melhorias:
 
-<details>
-<summary><b>1. Por que Random Forest e não Redes Neurais?</b></summary>
+1. **Ampliação da base de dados:** incorporar resultados de ensaios em idades iniciais, como 1, 3 e 7 dias, e buscar dados adicionais de diferentes composições, condições de cura e origens de materiais.
+2. **Quantificação da incerteza:** implementar intervalos de previsão utilizando técnicas como *Quantile Regression Forests* ou *Conformal Prediction*, permitindo avaliar a dispersão esperada das estimativas.
+3. **Validação externa:** testar os modelos com dados de obras, centrais dosadoras ou laboratórios não utilizados no treinamento, avaliando sua capacidade de generalização.
+4. **Deploy por API REST:** disponibilizar o modelo por meio de uma API para integração com sistemas de dosagem, plataformas de controle de qualidade e aplicações operacionais.
+5. **Monitoramento de desempenho e drift:** acompanhar mudanças na distribuição dos dados e na qualidade das previsões, definindo critérios objetivos para reavaliação e retreinamento.
+6. **Otimização de dosagem com restrições técnicas:** desenvolver análises que considerem resistência-alvo, custo dos materiais, trabalhabilidade, durabilidade e requisitos normativos.
+7. **Monitoramento de indicadores de negócio:** mensurar, em ambiente controlado, os efeitos da aplicação sobre custos, consumo de cimento, tempo de decisão e frequência de ensaios complementares.
+8. **Documentação da reprodutibilidade:** registrar versões das bibliotecas, parâmetros dos experimentos, sementes aleatórias, critérios de seleção e métricas de cada execução.
 
-Random Forest foi escolhido por três razões práticas: **(a)** funciona bem com datasets pequenos (1.030 amostras — pouco para redes neurais), **(b)** é robusto a overfitting sem necessidade de tuning extensivo, e **(c)** fornece `feature_importance` nativa — crucial para o valor de negócio (entender o que pesa na resistência). Redes Neurais só se justificariam com muito mais dados ou séries temporais complexas.
-</details>
-
-<details>
-<summary><b>2. Por que R² e RMSE como métricas principais?</b></summary>
-
-- **R²** responde a pergunta de negócio: *"quanto da variação da resistência o modelo explica?"* — 88,4% é excelente para material heterogêneo.
-- **RMSE** responde a pergunta de engenharia: *"qual o erro médio em MPa?"* — 5,46 MPa está na mesma unidade da variável-alvo, permitindo dimensionar coeficientes de segurança.
-
-Um terceiro indicador (MAE) poderia complementar, mas os dois acima cobrem bem tanto a perspectiva estatística quanto a técnica.
-</details>
-
-<details>
-<summary><b>3. O modelo pode extrapolar para traços fora do dataset?</b></summary>
-
-**Não com segurança.** Random Forest **não extrapola** — ele interpola entre os padrões vistos no treino. Se você fornecer um traço com valores muito fora das faixas do dataset original (ex: cimento acima de 540 kg/m³), a previsão tende a ser imprecisa ou enviesada para o valor mais próximo visto. Para traços inéditos, recomenda-se retreinar com amostras adicionais.
-</details>
-
-<details>
-<summary><b>4. Por que split 80/20 e não validação cruzada?</b></summary>
-
-O split 80/20 foi escolhido por **simplicidade e reprodutibilidade** (`random_state=42` garante resultado idêntico). Cross-validation (k-fold) daria estimativa mais robusta do desempenho geral, mas para um projeto de portfólio com dataset pequeno, 80/20 já é suficiente para demonstrar capacidade preditiva. Como evolução futura, recomenda-se `cross_val_score` com k=5.
-</details>
-
-<details>
-<summary><b>5. Como atualizar o modelo com novos dados de obra?</b></summary>
-
-O modelo pode ser retreinado adicionando as novas amostras ao `concrete.csv` e rodando novamente o notebook. Como o Random Forest é não-paramétrico, cada retreino incorpora os novos padrões automaticamente. Para produção contínua, o ideal seria uma pipeline MLOps (ex: retreino mensal com validação automática) — mas isso está fora do escopo deste case.
-</details>
-
-### De Engenharia Civil
-
-<details>
-<summary><b>6. O modelo substitui o ensaio de rompimento em laboratório?</b></summary>
-
-**Não.** O modelo é uma **ferramenta de pré-dimensionamento e antecipação de decisão**, não um substituto do controle tecnológico normativo (NBR 5739). Ele permite: prever resistência antes da concretagem, otimizar traços antes de produzi-los, e antecipar ganhos em idades jovens (3 e 7 dias) para planejar desforma. A validação por corpo de prova continua sendo obrigatória por norma.
-</details>
-
-<details>
-<summary><b>7. Qual é a margem de segurança recomendada ao usar as previsões?</b></summary>
-
-Com RMSE = 5,46 MPa, recomenda-se aplicar um **coeficiente de segurança preditivo** entre 5 e 8 MPa sobre a resistência de projeto (fk), dependendo do nível de responsabilidade estrutural. Para estruturas críticas, o ideal é trabalhar com o **intervalo de confiança inferior** da previsão — o que exigiria uma versão aprimorada do modelo com quantile regression ou bootstrap de resíduos.
-</details>
-
-<details>
-<summary><b>8. Por que 28 dias é referência?</b></summary>
-
-28 dias é o tempo convencional estabelecido por normas internacionais (ASTM C39, NBR 5739) porque, em condições normais de cura, o concreto atinge cerca de **99% da resistência final** nesse período. Nos primeiros 7 dias, a resistência já chega a ~70%, o que permite desforma controlada — e é exatamente aí que o modelo agrega mais valor.
-</details>
-
-<details>
-<summary><b>9. O modelo funciona para concretos de alto desempenho (>60 MPa)?</b></summary>
-
-Parcialmente. O dataset original contém alguns exemplos nessa faixa, mas a **dispersão do erro aumenta** para valores extremos (visível no gráfico real vs. predito). Para concretos de altíssimo desempenho (fck > 60 MPa), recomenda-se retreinar com uma base específica (ex: HPC datasets) ou aplicar coeficientes de segurança maiores.
-</details>
-
-<details>
-<summary><b>10. Quais os principais benefícios ESG que o modelo habilita?</b></summary>
-
-O cimento responde por ~7% das emissões globais de CO₂. Otimizar traços com substituição parcial por escória e cinza volante (subprodutos industriais) reduz o consumo de clínquer por m³. O modelo permite **testar virtualmente dezenas de combinações** antes de produzir fisicamente — economizando tanto cimento quanto o custo energético dos ensaios laboratoriais.
-</details>
-
-### De Negócio
-
-<details>
-<summary><b>11. Como medir o ROI desta solução numa construtora?</b></summary>
-
-Três alavancas mensuráveis:
-1. **Economia de cimento:** cada 10 kg/m³ economizados representam R$ 5–10/m³ de concreto.
-2. **Redução de dias de escoramento:** antecipar desforma em 2–3 dias por laje impacta diretamente o cronograma.
-3. **Redução de retrabalho:** evitar lotes fora de especificação (custo médio de R$ 20–50 mil por evento).
-
-Em uma obra de médio porte (5.000 m³), a economia conservadora estimada fica entre **R$ 150 mil e R$ 400 mil** ao longo do projeto.
-</details>
-
-<details>
-<summary><b>12. Por que não usar apenas uma planilha Excel em vez de ML?</b></summary>
-
-Excel funciona para **fórmulas conhecidas** (ex: relação a/c de Abrams). Mas a resistência do concreto depende de **8 variáveis com interações não-lineares** — impossível de modelar em fórmulas simples. O ML captura essas interações automaticamente. Além disso, uma planilha não fornece *feature importance*, não se atualiza com novos dados, e não escala para múltiplos traços simultâneos.
-</details>
+Essas melhorias podem ampliar a utilidade do projeto e aproximar a modelagem preditiva de aplicações práticas na construção civil, preservando a validação técnica como requisito para decisões relacionadas à segurança e ao desempenho estrutural.
 
 ---
 
-## Impacto Estratégico
+## Considerações Finais
 
-| Alavanca | Benefício |
-|----------|-----------|
-| **Cronograma** | Previsão em idades jovens → desforma segura antecipada |
-| **Financeiro** | Otimização de traços → economia de cimento por m³ |
-| **ESG** | Menor consumo de clínquer → pegada de carbono reduzida |
-| **Qualidade** | Pré-dimensionamento confiável → menos retrabalho |
+Este projeto demonstra a aplicação de Machine Learning à previsão da resistência à compressão do concreto, integrando engenharia de atributos, comparação de algoritmos, otimização de hiperparâmetros e combinação de modelos.
 
----
+Além do exercício técnico, a iniciativa evidencia como dados e modelos preditivos podem apoiar análises de eficiência operacional, controle de qualidade, planejamento de materiais e avaliação de oportunidades de redução de custos.
 
-## Citação
+Os resultados apresentados são referentes ao conjunto de dados utilizado e não substituem ensaios laboratoriais, especificações de projeto, normas técnicas ou a responsabilidade dos profissionais habilitados.
 
-Se você usar este projeto em pesquisa ou trabalho derivado, cite o dataset original:
-
-```bibtex
-@misc{yeh_concrete_1998,
-  author    = {Yeh, I-Cheng},
-  title     = {Concrete Compressive Strength},
-  year      = {1998},
-  publisher = {UCI Machine Learning Repository},
-  doi       = {10.24432/C5PK67},
-  url       = {https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength}
-}
-```
+O objetivo é demonstrar uma abordagem analítica reproduzível, com potencial de evolução para soluções de apoio à decisão orientadas a dados no setor da construção civil.
 
 ---
 
-## Licença
+## Autor
 
-Este projeto está licenciado sob a **MIT License** — veja [LICENSE](LICENSE) para detalhes. O dataset original segue a licença **CC BY 4.0** do UCI Machine Learning Repository.
+**Silvânio Góis**
+
+Gestor de Operações e Negócios Orientado a Dados, com interesse na aplicação de análise de dados, indicadores de desempenho e Machine Learning à melhoria de processos e à tomada de decisão.
+
+- Website: https://www.silvaniogois.com.br
+- LinkedIn: https://www.linkedin.com/in/silvanio-gois
+- GitHub: https://github.com/SilvanioSG
+- E-mail: sg@silvaniogois.com.br
 
 ---
 
-<div align="center">
+## Licença e Uso
 
-**Silvânio Góis**  
-*Gestor de Operações e Negócios Orientado a Dados*
+Os dados utilizados são provenientes de uma fonte pública, identificada na seção de origem dos dados. A reutilização do conjunto deve respeitar as condições de atribuição e os termos aplicáveis à fonte original.
 
-[Website](https://www.silvaniogois.com.br) · [LinkedIn](https://www.linkedin.com/in/silvanio-gois) · [GitHub](https://github.com/SilvanioSG) · sg@silvaniogois.com.br
+O código, a documentação e os resultados deste repositório devem ser utilizados considerando suas limitações metodológicas e a necessidade de validação independente antes de qualquer aplicação em contexto real.
 
-</div>
+Para fins acadêmicos, profissionais ou de pesquisa, recomenda-se citar a fonte original dos dados e identificar este repositório como referência para a implementação apresentada.
