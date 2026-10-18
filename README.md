@@ -1,5 +1,5 @@
  <div align="center">
-  <img src="SG_Site.png" alt="Silvânio Góis — Gestão de Operações e Negócios Orientada a Dados" width="100%"/>
+  <img src="SG_Site.png" alt="Silvânio Góis — Gestão de Operações e Negócios Orientada a Dados" width="50%"/>
 </div>
 
 # Previsão da Resistência à Compressão do Concreto com Machine Learning
