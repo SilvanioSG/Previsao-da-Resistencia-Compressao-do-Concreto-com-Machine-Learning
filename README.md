@@ -49,7 +49,7 @@ O conjunto foi apresentado originalmente no artigo científico:
 
 **Características da base:**
 
-- **Acesso aos dados:** [Concrete Compressive Strength Dataset — arquivo CSV](https://raw.githubusercontent.com/stedy/Machine-Learning-With-R-Datasets/master/concrete.csv)
+- **Acesso aos dados:** https://www.kaggle.com/datasets/dsrivastava2020/concretecsv
 - **Volume:** 1.030 amostras de ensaios laboratoriais.
 - **Variáveis de entrada:** cimento, escória de alto-forno, cinza volante, água, superplastificante, agregado graúdo, agregado miúdo e idade de cura.
 - **Unidades:** os componentes da mistura são expressos em kg/m³ e a idade em dias.
@@ -291,7 +291,7 @@ Gestor de Operações e Negócios Orientado a Dados, com interesse na aplicaçã
 
 ## Licença e Uso
 
-Os dados utilizados são provenientes de uma fonte pública, identificada na seção de origem dos dados. A reutilização do conjunto deve respeitar as condições de atribuição e os termos aplicáveis à fonte original.
+Os dados utilizados são provenientes de uma fonte pública, identificada na seção de origem dos dados. A reutilização do conjunto deve respeitar as condições de atribuição e os termos aplicáveis à fonte original (https://www.kaggle.com/datasets/dsrivastava2020/concretecsv).
 
 O código, a documentação e os resultados deste repositório devem ser utilizados considerando suas limitações metodológicas e a necessidade de validação independente antes de qualquer aplicação em contexto real.
 
